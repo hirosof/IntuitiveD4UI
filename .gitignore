@@ -143,6 +143,7 @@ vite.config.ts.timestamp-*
 local
 temp
 .claude/settings.local.json
+.claude/launch.json
 
 # 無効なファイル
 # ※ Claude Codeが実行するコマンドの影響で作成される可能性あり
