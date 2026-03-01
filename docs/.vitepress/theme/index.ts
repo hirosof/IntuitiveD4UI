@@ -3,6 +3,8 @@ import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import './style.css'
+import {registerMermaidDiagramRendererComponent} from 'mermaid-diagram-for-vitepress2/register'
+import 'mermaid-diagram-for-vitepress2/style'
 
 export default {
   extends: DefaultTheme,
@@ -13,5 +15,6 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     // ...
+    registerMermaidDiagramRendererComponent({app , router ,siteData}); 
   }
 } satisfies Theme

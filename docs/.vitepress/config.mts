@@ -1,28 +1,14 @@
 import { defineConfig } from 'vitepress'
+import { withMermaidDiagramRenderer } from 'mermaid-diagram-for-vitepress2'
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+const config = defineConfig({ 
   title: "Intuitive D4UI ドキュメント",
-  description: "Intuitive D4UI ドキュメント",
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
-    ],
-
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
-
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/hirosof/IntuitiveD4UI' }
     ]
   }
 })
+
+export default withMermaidDiagramRenderer(config)
