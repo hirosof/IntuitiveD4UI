@@ -5,9 +5,13 @@
  * ユーザーが「プロジェクト名」と「キャンバスサイズ」を設定して
  * 新規プロジェクトを作成するためのダイアログ。
  *
- * - ダイアログの開閉状態は useUIStore.newProjectDialogVisible で一元管理する
- * - 送信時に projectStore.createProject(name, width, height) を呼び出す
- * - ダイアログを開くたびにフォームをリセットする（watch で検知）
+ * ダイアログ開閉の実装メモ:
+ *   Vuetify 4 の v-dialog は Pinia の reactive state を v-model に直接渡すと
+ *   プログラム側からの close が反映されない場合がある。
+ *   そのため、ローカル ref（dialogVisible）を v-model に渡し、
+ *   ストアとはウォッチャーで双方向同期する。
+ *     - uiStore.newProjectDialogVisible → dialogVisible（ストアが開くトリガー）
+ *     - dialogVisible → uiStore（ダイアログが閉じたらストアを同期）
  *
  * 設計書: pre-plans/basic-design/03-canvas-rendering.md セクション 5.1.1
  */
@@ -17,6 +21,43 @@ import { useUIStore } from '@/stores/useUIStore'
 
 const projectStore = useProjectStore()
 const uiStore = useUIStore()
+
+// ============================================================
+// ダイアログ開閉状態（ローカル ref）
+// v-dialog の v-model には Pinia state を直接渡さず、ローカル ref を使用する
+// ============================================================
+
+/** ダイアログの表示状態（ローカル管理） */
+const dialogVisible = ref<boolean>(false)
+
+/**
+ * ストアが開くよう指示したら dialogVisible を true にする。
+ * 同時にフォームをリセットする。
+ */
+watch(
+  () => uiStore.newProjectDialogVisible,
+  (storeVisible) => {
+    if (storeVisible && !dialogVisible.value) {
+      // フォームリセット
+      projectName.value = '新規プロジェクト'
+      selectedPresetId.value = 'web-1920'
+      customWidth.value = 1920
+      customHeight.value = 1080
+      formRef.value?.resetValidation()
+      // ダイアログを開く
+      dialogVisible.value = true
+    }
+  },
+)
+
+/**
+ * ダイアログが閉じたら（ESC・外部クリック・cancel/submit）ストアを同期する。
+ */
+watch(dialogVisible, (visible) => {
+  if (!visible) {
+    uiStore.closeNewProjectDialog()
+  }
+})
 
 // ============================================================
 // キャンバスサイズプリセット
@@ -75,29 +116,10 @@ const resolvedHeight = computed<number>(() =>
 )
 
 // ============================================================
-// ダイアログ開閉と連動したフォームリセット
+// バリデーション
 // ============================================================
 
 const formRef = ref<{ validate: () => Promise<{ valid: boolean }>; resetValidation: () => void } | null>(null)
-
-watch(
-  () => uiStore.newProjectDialogVisible,
-  (visible) => {
-    if (visible) {
-      // 開くたびに初期値に戻す
-      projectName.value = '新規プロジェクト'
-      selectedPresetId.value = 'web-1920'
-      customWidth.value = 1920
-      customHeight.value = 1080
-      // バリデーションエラー表示もリセット
-      formRef.value?.resetValidation()
-    }
-  },
-)
-
-// ============================================================
-// バリデーションルール
-// ============================================================
 
 const nameRules = [
   (v: string) => !!v?.trim() || 'プロジェクト名を入力してください',
@@ -125,18 +147,22 @@ async function onSubmit(): Promise<void> {
     resolvedWidth.value,
     resolvedHeight.value,
   )
-  uiStore.closeNewProjectDialog()
+
+  // ローカル ref を false にすることで v-dialog が確実に閉じる。
+  // ウォッチャー経由でストアも自動的に閉じた状態に同期される。
+  dialogVisible.value = false
 }
 
 /** 「キャンセル」ボタン押下時の処理 */
 function onCancel(): void {
-  uiStore.closeNewProjectDialog()
+  dialogVisible.value = false
 }
 </script>
 
 <template>
+  <!-- v-model にローカル ref を使用（Pinia state の直接バインドを避ける） -->
   <v-dialog
-    v-model="uiStore.newProjectDialogVisible"
+    v-model="dialogVisible"
     max-width="440"
   >
     <v-card>
