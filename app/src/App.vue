@@ -3,14 +3,18 @@
  * アプリケーションルートコンポーネント
  *
  * Vuetify の v-app をルートとして AppMainLayout を展開する。
- * キャンバスエリアは Step ④ で TheCanvasStage に差し替える。
+ * TheCanvasStage を AppMainLayout のデフォルトスロットに渡す。
+ * プロジェクト未選択時の表示制御は AppMainLayout 側で行う（hasProject チェック）。
  */
 import AppMainLayout from '@/components/layout/AppMainLayout.vue'
+import TheCanvasStage from '@/components/canvas/TheCanvasStage.vue'
 </script>
 
 <template>
   <v-app>
-    <AppMainLayout />
+    <AppMainLayout>
+      <TheCanvasStage />
+    </AppMainLayout>
   </v-app>
 </template>
 

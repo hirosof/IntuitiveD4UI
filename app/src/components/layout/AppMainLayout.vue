@@ -10,16 +10,24 @@
  *   - AppStatusBar  : 下端固定ステータスバー（24px, v-footer）
  *   - v-main        : キャンバスエリア（残余スペース）
  *
- * キャンバスエリアは #default スロットで受け取る（Step ④ で TheCanvasStage を渡す）。
+ * キャンバスエリアの表示制御:
+ *   - プロジェクトあり: デフォルトスロットの内容（TheCanvasStage）を表示
+ *   - プロジェクトなし: ウェルカム画面を表示
+ *   スロットへの v-if により、プロジェクト未選択時は TheCanvasStage をマウントしない。
  *
  * 設計書: pre-plans/basic-design/07-screen-layout.md セクション 2
  *         pre-plans/basic-design/08-module-structure.md セクション 5.1
  */
+import { computed } from 'vue'
+import { useProjectStore } from '@/stores/useProjectStore'
 import AppMenuBar from './AppMenuBar.vue'
 import AppToolbar from './AppToolbar.vue'
 import AppLeftSidebar from './AppLeftSidebar.vue'
 import AppRightSidebar from './AppRightSidebar.vue'
 import AppStatusBar from './AppStatusBar.vue'
+
+const projectStore = useProjectStore()
+const hasProject = computed(() => projectStore.hasProject)
 </script>
 
 <template>
@@ -40,33 +48,40 @@ import AppStatusBar from './AppStatusBar.vue'
     <!-- ツールバー（v-main 内上部、CSS で高さ確保） -->
     <AppToolbar />
 
-    <!-- キャンバスエリア（残余スペース、Step ④ で TheCanvasStage が入る） -->
+    <!-- キャンバスエリア（残余スペース） -->
     <div class="canvas-area">
-      <slot>
-        <!-- フォールバック: プロジェクト未作成時のウェルカム画面 -->
-        <div class="welcome-screen">
-          <v-icon icon="mdi-vector-square" size="64" class="mb-4" color="primary" opacity="0.4" />
-          <h2 class="text-h6 mb-2 text-medium-emphasis">Intuitive D4UI</h2>
-          <p class="text-body-2 text-disabled mb-6">
-            ワイヤーフレーム作成ツール
-          </p>
-          <div class="d-flex gap-3">
-            <v-btn
-              prepend-icon="mdi-file-plus-outline"
-              variant="tonal"
-              color="primary"
-            >
-              新規プロジェクト
-            </v-btn>
-            <v-btn
-              prepend-icon="mdi-folder-open-outline"
-              variant="outlined"
-            >
-              開く
-            </v-btn>
-          </div>
+      <!--
+        プロジェクトあり: デフォルトスロット（TheCanvasStage）を表示
+        v-if により、プロジェクト未選択時は TheCanvasStage をマウントしない
+      -->
+      <slot v-if="hasProject" />
+
+      <!--
+        プロジェクトなし: ウェルカム画面
+        新規プロジェクト・ファイルを開く操作は今後メニューバーと接続する
+      -->
+      <div v-else class="welcome-screen">
+        <v-icon icon="mdi-vector-square" size="64" class="mb-4" color="primary" opacity="0.4" />
+        <h2 class="text-h6 mb-2 text-medium-emphasis">Intuitive D4UI</h2>
+        <p class="text-body-2 text-disabled mb-6">
+          ワイヤーフレーム作成ツール
+        </p>
+        <div class="d-flex gap-3">
+          <v-btn
+            prepend-icon="mdi-file-plus-outline"
+            variant="tonal"
+            color="primary"
+          >
+            新規プロジェクト
+          </v-btn>
+          <v-btn
+            prepend-icon="mdi-folder-open-outline"
+            variant="outlined"
+          >
+            開く
+          </v-btn>
         </div>
-      </slot>
+      </div>
     </div>
   </v-main>
 </template>
