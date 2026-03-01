@@ -329,7 +329,12 @@ watch(activePage, (newPage, oldPage) => {
     }"
     @mousedown="onContainerMouseDown"
   >
-    <v-stage :config="stageConfig">
+    <!--
+      stageWidth / stageHeight が 0 の場合（マウント直後、ResizeObserver 未発火）は
+      v-stage をレンダリングしない。
+      0×0 の Konva Stage に対して drawImage を呼ぶと InvalidStateError が発生するため。
+    -->
+    <v-stage v-if="stageWidth > 0 && stageHeight > 0" :config="stageConfig">
       <!-- ========================================== -->
       <!-- グリッドレイヤー（listening: false）       -->
       <!-- キャンバス背景・グリッド線を描画する        -->

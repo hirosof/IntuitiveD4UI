@@ -90,7 +90,7 @@ function selectTool(item: PaletteItem): void {
               :active="activePage?.id === page.id"
               :title="page.name"
               prepend-icon="mdi-file-outline"
-              active-color="primary"
+              color="primary"
               rounded="sm"
               @click="projectStore.setActivePage(page.id)"
             >
@@ -131,7 +131,7 @@ function selectTool(item: PaletteItem): void {
                   :prepend-icon="item.icon"
                   :title="item.label"
                   :active="uiStore.activeTool === item.tool"
-                  active-color="primary"
+                  color="primary"
                   rounded="sm"
                   @click="selectTool(item)"
                 />
