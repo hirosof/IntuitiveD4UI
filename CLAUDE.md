@@ -13,7 +13,7 @@
 | ディレクトリ | 内容 |
 |-------------|------|
 | `app/` | Vue アプリ本体（メイン開発対象） |
-| `docs/` | VitePress ドキュメントサイト |
+| `docs/` | VitePress ドキュメントサイト（Mermaid 対応済み） |
 | `pre-plans/` | 設計書類 |
 
 ### 技術スタック
@@ -52,6 +52,13 @@
 | `pre-plans/basic-design/07-screen-layout.md` | 画面レイアウト設計 |
 | `pre-plans/basic-design/08-module-structure.md` | モジュール構成 |
 | `pre-plans/basic-design/09-documentation-plan.md` | ドキュメント体系設計 |
+
+### ドキュメント（docs/）
+
+- **ツール:** VitePress 2.0（Alpha）
+- **Mermaid 対応:** カスタムコンポーネント（`mermaid-diagram-for-vitepress2`）をインストール済み
+  - 標準の mermaid コードブロックでダイアグラムが表示される
+  - `graph TD`、`sequenceDiagram`、`classDiagram` 等、通常の Mermaid 記法がそのまま使用可能
 
 ### 開発フェーズ
 
