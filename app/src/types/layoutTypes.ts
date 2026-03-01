@@ -66,18 +66,21 @@ export type LayoutConfig = FreeLayout | FlexLayout | GridLayout
 // LayoutResult（レイアウト計算結果）
 // ============================================================
 
-/** レイアウトエンジンが算出した要素の配置結果 */
+/**
+ * レイアウトエンジンが算出した1子要素分の配置結果
+ * 設計書: pre-plans/basic-design/03-canvas-rendering.md セクション 3.1.2
+ */
 export interface LayoutResult {
-  /** 要素ID */
-  id: string
-  /** 算出後のX座標（グローバル座標） */
-  x: number
-  /** 算出後のY座標（グローバル座標） */
-  y: number
-  /** 算出後の幅（px） */
-  width: number
-  /** 算出後の高さ（px） */
-  height: number
+  /** 子要素のID */
+  elementId: string
+  /** 計算済みX座標（親コンテナからの相対位置） */
+  computedX: number
+  /** 計算済みY座標（親コンテナからの相対位置） */
+  computedY: number
+  /** 計算済み幅（stretch 等で変更される場合） */
+  computedWidth: number
+  /** 計算済み高さ（stretch 等で変更される場合） */
+  computedHeight: number
 }
 
 // ============================================================
