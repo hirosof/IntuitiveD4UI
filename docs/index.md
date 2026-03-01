@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "Intuitive D4UI ドキュメント"
-  text: "A VitePress Site"
+  text: "Intuitive D4UI ドキュメント"
   tagline: My great project tagline
   actions:
     - theme: brand
