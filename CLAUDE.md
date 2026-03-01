@@ -8,20 +8,32 @@
 - **アプリ形態:** SPA + PWA（Chromium系ブラウザのみ対応）
 - **UI言語:** 日本語のみ
 
+### リポジトリ構成
+
+| ディレクトリ | 内容 |
+|-------------|------|
+| `app/` | Vue アプリ本体（メイン開発対象） |
+| `docs/` | VitePress ドキュメントサイト |
+| `pre-plans/` | 設計書類 |
+
 ### 技術スタック
 
-| カテゴリ | 技術 |
-|----------|------|
-| 言語 | TypeScript |
-| フレームワーク | Vue.js（Vue 3, Composition API） |
-| 状態管理 | Pinia |
-| ビルドツール | Vite |
-| Canvas描画 | Konva.js + vue-konva |
-| UIコンポーネント | Vuetify |
-| CSS方針 | Vuetifyスタイルシステム + Vue SFC scoped CSS |
-| ユニットテスト | Vitest |
-| E2Eテスト | Playwright |
-| PWA | vite-plugin-pwa（Workbox） |
+| カテゴリ | 技術 | バージョン |
+|----------|------|-----------|
+| パッケージマネージャー | npm | - |
+| 言語 | TypeScript | ~5.9 |
+| フレームワーク | Vue.js（Vue 3, Composition API） | ^3.5 |
+| 状態管理 | Pinia | ^3.0 |
+| ビルドツール | Vite | ^7.3 |
+| Canvas描画 | Konva.js + vue-konva | ^10.2 / ^3.3 |
+| UIコンポーネント | Vuetify | ^4.0 |
+| CSS方針 | Vuetifyスタイルシステム + Vue SFC scoped CSS | - |
+| ユニットテスト | Vitest | ^4.0 |
+| E2Eテスト | Playwright | ^1.58 |
+| PWA | vite-plugin-pwa（Workbox） | ^1.2 |
+| Linter | OxLint + ESLint | - |
+| フォーマッター | Prettier | 3.8 |
+| 開発補助 | Vue DevTools（vite-plugin-vue-devtools） | - |
 
 ### 設計書
 
