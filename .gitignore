@@ -137,3 +137,13 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+
+# ローカルフォルダ・ファイル
+local
+temp
+.claude/settings.local.json
+
+# 無効なファイル
+# ※ Claude Codeが実行するコマンドの影響で作成される可能性あり
+nul
