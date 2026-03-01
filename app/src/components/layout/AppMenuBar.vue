@@ -36,7 +36,7 @@ const canRedo = computed(() => undoStore.canRedo)
         <v-btn v-bind="props" variant="text" size="x-small" class="menu-btn">ファイル</v-btn>
       </template>
       <v-list density="compact" min-width="220">
-        <v-list-item title="新規プロジェクト">
+        <v-list-item title="新規プロジェクト" @click="uiStore.openNewProjectDialog()">
           <template #append>
             <span class="shortcut-text">Ctrl+N</span>
           </template>

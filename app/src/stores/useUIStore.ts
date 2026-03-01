@@ -86,6 +86,13 @@ export const useUIStore = defineStore('ui', () => {
   const textEditingElementId = ref<string | null>(null)
 
   // ============================================================
+  // State — ダイアログ
+  // ============================================================
+
+  /** 新規プロジェクト作成ダイアログの表示状態 */
+  const newProjectDialogVisible = ref<boolean>(false)
+
+  // ============================================================
   // Getters
   // ============================================================
 
@@ -225,6 +232,20 @@ export const useUIStore = defineStore('ui', () => {
   }
 
   // ============================================================
+  // Actions — ダイアログ管理
+  // ============================================================
+
+  /** 新規プロジェクト作成ダイアログを開く */
+  function openNewProjectDialog(): void {
+    newProjectDialogVisible.value = true
+  }
+
+  /** 新規プロジェクト作成ダイアログを閉じる */
+  function closeNewProjectDialog(): void {
+    newProjectDialogVisible.value = false
+  }
+
+  // ============================================================
   // Public API
   // ============================================================
 
@@ -258,5 +279,10 @@ export const useUIStore = defineStore('ui', () => {
     // Actions — テキスト編集
     startTextEditing,
     stopTextEditing,
+    // State — ダイアログ
+    newProjectDialogVisible,
+    // Actions — ダイアログ
+    openNewProjectDialog,
+    closeNewProjectDialog,
   }
 })

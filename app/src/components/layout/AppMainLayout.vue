@@ -20,6 +20,7 @@
  */
 import { computed } from 'vue'
 import { useProjectStore } from '@/stores/useProjectStore'
+import { useUIStore } from '@/stores/useUIStore'
 import AppMenuBar from './AppMenuBar.vue'
 import AppToolbar from './AppToolbar.vue'
 import AppLeftSidebar from './AppLeftSidebar.vue'
@@ -27,6 +28,7 @@ import AppRightSidebar from './AppRightSidebar.vue'
 import AppStatusBar from './AppStatusBar.vue'
 
 const projectStore = useProjectStore()
+const uiStore = useUIStore()
 const hasProject = computed(() => projectStore.hasProject)
 </script>
 
@@ -71,6 +73,7 @@ const hasProject = computed(() => projectStore.hasProject)
             prepend-icon="mdi-file-plus-outline"
             variant="tonal"
             color="primary"
+            @click="uiStore.openNewProjectDialog()"
           >
             新規プロジェクト
           </v-btn>
