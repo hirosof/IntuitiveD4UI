@@ -2,8 +2,56 @@
 
 ## プロジェクト概要
 
-- **プロジェクト名:** IntuitiveD4UI
-- **目的:** ワイヤーフレーム作成ツール（バイブコーディング型開発）
+- **プロジェクト名:** Intuitive D4UI（Designer for User Interface）
+- **目的:** Webサイト・Webアプリケーション・デスクトップアプリ（Windows）向けワイヤーフレーム作成ツール
+- **対象ユーザー:** 開発者本人のみ（個人利用）
+- **アプリ形態:** SPA + PWA（Chromium系ブラウザのみ対応）
+- **UI言語:** 日本語のみ
+
+### 技術スタック
+
+| カテゴリ | 技術 |
+|----------|------|
+| 言語 | TypeScript |
+| フレームワーク | Vue.js（Vue 3, Composition API） |
+| 状態管理 | Pinia |
+| ビルドツール | Vite |
+| Canvas描画 | Konva.js + vue-konva |
+| UIコンポーネント | Vuetify |
+| CSS方針 | Vuetifyスタイルシステム + Vue SFC scoped CSS |
+| ユニットテスト | Vitest |
+| E2Eテスト | Playwright |
+| PWA | vite-plugin-pwa（Workbox） |
+
+### 設計書
+
+設計書類は `pre-plans/` に格納されている。
+
+| パス | 内容 |
+|------|------|
+| `pre-plans/requirements/要件定義書.md` | 要件定義書 v0.3.0 |
+| `pre-plans/basic-design/00-overview.md` | 基本設計: 全体概要（技術スタック・用語集） |
+| `pre-plans/basic-design/01-application-architecture.md` | アプリケーション基盤 |
+| `pre-plans/basic-design/02-data-design.md` | データ設計・永続化（.wfpファイル形式、IndexedDB） |
+| `pre-plans/basic-design/03-canvas-rendering.md` | キャンバス・レンダリング設計 |
+| `pre-plans/basic-design/04-interaction-design.md` | 操作・インタラクション設計 |
+| `pre-plans/basic-design/05-export-design.md` | エクスポート・変換設計 |
+| `pre-plans/basic-design/06-development-roadmap.md` | 開発ロードマップ（5フェーズ + PoCゲート） |
+| `pre-plans/basic-design/07-screen-layout.md` | 画面レイアウト設計 |
+| `pre-plans/basic-design/08-module-structure.md` | モジュール構成 |
+| `pre-plans/basic-design/09-documentation-plan.md` | ドキュメント体系設計 |
+
+### 開発フェーズ
+
+| フェーズ | 内容 |
+|---------|------|
+| フェーズ1 | 基盤構築・基本機能（MVP）|
+| フェーズ2 | UIコンポーネント・拡張機能 |
+| フェーズ3 | プロジェクト管理・テンプレート |
+| PoC-1 | HTML/CSS変換の実現性検証 |
+| フェーズ4 | 画像・HTML/CSSエクスポート |
+| PoC-2/3 | XAML差異の実機検証 |
+| フェーズ5 | XAMLエクスポート（WPF / WinUI 3 / .NET MAUI / Avalonia UI） |
 
 ---
 
